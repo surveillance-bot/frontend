@@ -4,11 +4,39 @@ $(document).on("change", ".file_multi_video", function (evt) {
   $pre.parent()[0].load();
 });
 
-var text;
-document.getElementById('button').addEventListener('click', function () { var files = document.getElementById('file').files; if (files.length > 0) { getBase64(files[0]); } }); var text; function getBase64(file) {
-  var reader = new FileReader(); reader.readAsDataURL(file); reader.onload = function () {
-    text = reader.result;
+document.getElementById('submit').addEventListener('click', function () {
+  var files = document.getElementById('input').files;
+  if (files.length > 0) {
+    var reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    var text;
 
-  };
-  reader.onerror = function (error) { console.log('Error: ', error); };
-} 
+    reader.onload = function () {
+      text = reader.result;
+
+      fetch('http://localhost:5000/recognize', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          video: text,
+          title: document.getElementById("title").innerHTML,
+          location: document.getElementById("location").innerHTML
+
+        }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Success:', data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+          };
+
+    reader.onerror = function (error) {
+      console.log('Error: ', error);
+    };
+  }
+});
