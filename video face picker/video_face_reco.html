@@ -11,11 +11,16 @@
 </head>
 
 <body>
+    
+    <input type="file" name="file[]" id="input" class="file_multi_video" accept="video/*"> <br>
+    <label>Title</label> - <input type="text" id="title"> <br>
+    <label>Location</label> - <input type="text" id="location"> <br> 
+    
+    <button id="submit">Submit</button><br>
+
     <video width="400" controls>
         <source src="" id="video_here">
     </video>
-
-    <input type="file" name="file[]" id="input" class="file_multi_video" accept="video/*">
 
     <script src="./index.js" type="text/javascript"></script>
 </body>
