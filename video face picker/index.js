@@ -4,6 +4,12 @@ $(document).on("change", ".file_multi_video", function (evt) {
   $pre.parent()[0].load();
 });
 
+$(document).on("change", ".file_multi_image", function (evt) {
+  var $pre = $('#preview');
+  $pre[0].src = URL.createObjectURL(this.files[0]);
+  $pre.parent()[0].load();
+});
+
 document.getElementById('submit').addEventListener('click', function () {
   var files = document.getElementById('input').files;
   if (files.length > 0) {
